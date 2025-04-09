@@ -23,7 +23,8 @@ const JobSchema = z.object({
     company : z.string({message : "Please provide the name of company"}),
     role : z.string(),
     dateApplied : z.coerce.date(),
-    link : z.string({message : "Please provide the link"})
+    link : z.string({message : "Please provide the link"}),
+    status : z.enum(["Applied", "Interview", "Offer", "Rejected"])
     
 })
 
@@ -133,7 +134,7 @@ UserRoute.post("/Jobs" , async(req : CustomRequest , res : Response) : Promise<a
         })
     }
 
-    const { company , link , role , dateApplied }  : JobSchematype = req?.body
+    const { company , link , role , dateApplied , status }  : JobSchematype = req?.body
     
     const userId = req.userId
 
@@ -143,7 +144,8 @@ UserRoute.post("/Jobs" , async(req : CustomRequest , res : Response) : Promise<a
         company : company,
         role : role,
         dateApplied : dateApplied,
-        link : link
+        link : link,
+        status : status
       })
 
       res.status(200).json({
@@ -167,7 +169,7 @@ UserRoute.post("/Jobs" , async(req : CustomRequest , res : Response) : Promise<a
 UserRoute.put("/Jobs/:id" , async(req : CustomRequest , res : Response) : Promise<any>=>{
   
   const id = req.params.id
-  const { company , link , role , dateApplied }  : JobSchematype = req?.body
+  const { company , link , role , dateApplied , status }  : JobSchematype = req?.body
   
   const userId = req.userId
 
@@ -180,7 +182,8 @@ UserRoute.put("/Jobs/:id" , async(req : CustomRequest , res : Response) : Promis
       company : company,
       link : link,
       role : role,
-      dateApplied : dateApplied
+      dateApplied : dateApplied,
+      status : status
      }
     )
     
