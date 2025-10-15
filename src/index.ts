@@ -7,7 +7,11 @@ const app = express()
 
 
 app.use(express.json())
-app.use(cors())
+
+app.use(cors({
+  origin: 'https://job-tracker-front-beta.vercel.app', 
+  methods: 'GET,POST,PUT,DELETE'
+}));
 
 
 
